@@ -26,6 +26,8 @@ func newNode[T comparable](value T) *node[T] {
 type LinkedList[T comparable] struct {
 	head *node[T] // puntero al primer nodo
 	tail *node[T] // puntero al último nodo
+
+	size int // by AgusLacomi Punto 1
 }
 
 // NewLinkedList crea una nueva lista enlazada, vacía
@@ -44,8 +46,10 @@ func (l *LinkedList[T]) Append(value T) {
 	if l.head == nil {
 		l.head = newNode
 		l.tail = newNode
+		l.size++ // by AgusLacomi Punto 1
 		return
 	}
+	l.size++ // by AgusLacomi Punto 1
 	l.tail.next = newNode
 	l.tail = newNode
 }
@@ -58,8 +62,10 @@ func (l *LinkedList[T]) Prepend(value T) {
 	if l.head == nil {
 		l.head = newNode
 		l.tail = newNode
+		l.size++ // by AgusLacomi Punto 1
 		return
 	}
+	l.size++ // by AgusLacomi Punto 1
 	newNode.next = l.head
 	l.head = newNode
 }
@@ -85,6 +91,7 @@ func (l *LinkedList[T]) InsertAt(value T, position int) {
 	if current == nil {
 		return
 	}
+	l.size++ // by AgusLacomi Punto 1
 	newNode.next = current.next
 	current.next = newNode
 }
@@ -97,12 +104,14 @@ func (l *LinkedList[T]) Remove(value T) {
 	}
 	if l.head.value == value {
 		l.head = l.head.next
+		l.size-- // by AgusLacomi Punto 1
 		return
 	}
 	current := l.head
 	for current.next != nil {
 		if current.next.value == value {
 			current.next = current.next.next
+			l.size-- // by AgusLacomi Punto 1
 			return
 		}
 		current = current.next
@@ -170,16 +179,8 @@ func (l *LinkedList[T]) Get(position int) (T, error) {
 }
 
 // Size devuelve la cantidad de nodos en la lista
-// O(n)
+// O(1)
+// By AgusLacomi Punto 1
 func (l *LinkedList[T]) Size() int {
-	if l.head == nil {
-		return 0
-	}
-	current := l.head
-	position := 0
-	for current != nil {
-		current = current.next
-		position++
-	}
-	return position
+	return l.size
 }

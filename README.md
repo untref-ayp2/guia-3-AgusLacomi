@@ -12,7 +12,7 @@ En la carpeta `/linkedlist` se encuentra una implementación de una lista enlaza
 - **_Get:_** Devuelve el elemento de la lista que se encuentra en una posición dada
 - **_Size:_** Devuelve la cantidad de elemento que tiene la lista
 - **_String:_** Devuelve una cadena de caracteres que representa la lista (para usar con Print)
-1. Modificar la implementacion de lista enlazada simple para que Size sea O(1)
+1. Modificar la implementacion de lista enlazada simple para que Size sea O(1) [OK]
 2. Implementar en la carpeta `/slicelist`una lista usando slices en lugar de nodos enlazados, con las mismas operaciones que la lista enlazada. Analizar el orden de cada operación. 
 3. Escribir una función que reciba como parámetros dos listas del mismo tipo y devuelva una lista resultante de concatenar la segunda lista al final de la primera
 4. Escribir una función que reciba dos listas del mismo tipo y devuelva la lista que resulta de intercalar uno a uno los elementos de ambas listas.

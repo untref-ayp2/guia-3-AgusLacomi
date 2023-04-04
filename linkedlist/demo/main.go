@@ -41,5 +41,6 @@ func main() {
 	l.InsertAt(2, 2)
 
 	fmt.Println(l)
+	fmt.Println("Tamaño", l.Size()) // by AgusLacomi Punto 1
 
 }
