@@ -43,7 +43,7 @@ func main() {
 	fmt.Println(l)
 	fmt.Println("Tamaño", l.Size()) // by AgusLacomi Punto 1
 
-	/****************Punto Cuatro*******************************/
+	/****************Punto Tres*******************************/
 	l1 := linkedlist.NewLinkedList[int]()
 	l1.Append(10)
 	l1.Append(20)
@@ -51,12 +51,18 @@ func main() {
 
 	l3 := ConcatenarLinkedList[int](l, l1)
 	fmt.Println(l3.String())
+	/****************Punto Tres*******************************/
+
 	/****************Punto Cuatro*******************************/
 
+	l4 := IntercalarLinkedList[int](l, l1)
+	fmt.Println(l4.String())
+
+	/****************Punto Cuatro*******************************/
 }
 
 /**
- *	4- Escribir una función que reciba dos listas del mismo tipo y devuelva la lista que resulta de intercalar uno a uno los elementos de ambas listas.
+ *	3. Escribir una función que reciba como parámetros dos listas del mismo tipo y devuelva una lista resultante de concatenar la segunda lista al final de la primera.
  *
  *	By AgusLacomi
  */
@@ -78,6 +84,46 @@ func ConcatenarLinkedList[T comparable](l1 *linkedlist.LinkedList[T], l2 *linked
 	}
 
 	// [0 1 2 3 4 5 10 20 30]
+
+	return aux
+}
+
+/**
+ *
+ * 4. Escribir una función que reciba dos listas del mismo tipo y devuelva la lista que resulta de intercalar uno a uno los elementos de ambas listas.
+ *
+ * By AgusLacomi
+ */
+func IntercalarLinkedList[T comparable](l1 *linkedlist.LinkedList[T], l2 *linkedlist.LinkedList[T]) *linkedlist.LinkedList[T] {
+
+	var size int
+	var dato, _ T
+	var listaMayor int
+
+	paux := *l2
+
+	if l2.Size() >= l1.Size() {
+		size = l1.Size()
+		listaMayor = l2.Size()
+	} else {
+		size = l2.Size() - 1
+		listaMayor = l1.Size()
+		paux = *l1
+	}
+
+	aux := linkedlist.NewLinkedList[T]()
+
+	for i := 0; i < size; i++ {
+		dato, _ = l1.Get(i)
+		aux.Append(dato)
+		dato, _ = l2.Get(i)
+		aux.Append(dato)
+	}
+
+	for i := size; i < listaMayor; i++ {
+		dato, _ = paux.Get(i)
+		aux.Append(dato)
+	}
 
 	return aux
 }
