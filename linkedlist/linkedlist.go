@@ -26,6 +26,8 @@ func newNode[T comparable](value T) *node[T] {
 type LinkedList[T comparable] struct {
 	head *node[T] // puntero al primer nodo
 	tail *node[T] // puntero al último nodo
+
+	size int // by AgusLacomi Punto 1
 }
 
 // NewLinkedList crea una nueva lista enlazada, vacía
@@ -44,8 +46,10 @@ func (l *LinkedList[T]) Append(value T) {
 	if l.head == nil {
 		l.head = newNode
 		l.tail = newNode
+		l.size++ // by AgusLacomi Punto 1
 		return
 	}
+	l.size++ // by AgusLacomi Punto 1
 	l.tail.next = newNode
 	l.tail = newNode
 }
@@ -58,8 +62,10 @@ func (l *LinkedList[T]) Prepend(value T) {
 	if l.head == nil {
 		l.head = newNode
 		l.tail = newNode
+		l.size++ // by AgusLacomi Punto 1
 		return
 	}
+	l.size++ // by AgusLacomi Punto 1
 	newNode.next = l.head
 	l.head = newNode
 }
@@ -85,6 +91,7 @@ func (l *LinkedList[T]) InsertAt(value T, position int) {
 	if current == nil {
 		return
 	}
+	l.size++ // by AgusLacomi Punto 1
 	newNode.next = current.next
 	current.next = newNode
 }
@@ -97,12 +104,14 @@ func (l *LinkedList[T]) Remove(value T) {
 	}
 	if l.head.value == value {
 		l.head = l.head.next
+		l.size-- // by AgusLacomi Punto 1
 		return
 	}
 	current := l.head
 	for current.next != nil {
 		if current.next.value == value {
 			current.next = current.next.next
+			l.size-- // by AgusLacomi Punto 1
 			return
 		}
 		current = current.next
@@ -170,16 +179,114 @@ func (l *LinkedList[T]) Get(position int) (T, error) {
 }
 
 // Size devuelve la cantidad de nodos en la lista
-// O(n)
+// O(1)
+// By AgusLacomi Punto 1
 func (l *LinkedList[T]) Size() int {
-	if l.head == nil {
-		return 0
+	return l.size
+}
+
+/************************************************************/
+
+type Stack[T comparable] struct {
+	head *node[T] // puntero al primer nodo
+	size int
+}
+
+func NewStack[T comparable]() *Stack[T] {
+	return &Stack[T]{head: nil}
+}
+
+func (p *Stack[T]) Push(value T) {
+	newNode := newNode(value)
+	if p.head == nil {
+		p.head = newNode
+		p.size++
+	} else {
+		newNode.next = p.head
+		p.head = newNode
+		p.size++
 	}
-	current := l.head
-	position := 0
-	for current != nil {
-		current = current.next
-		position++
+}
+
+func (p *Stack[T]) Pop() (T, error) {
+
+	if p.head == nil {
+		var t T
+		return t, errors.New("Nada que eliminar")
 	}
-	return position
+	retorno := p.head
+	p.head = p.head.next
+	p.size--
+	return retorno.value, nil
+}
+
+func (p *Stack[T]) IsEmpty() bool {
+
+	if p.head != nil {
+		return false
+	}
+	return true
+}
+
+func (p *Stack[T]) Top() (T, error) {
+	if p.head == nil {
+		var t T
+		return t, errors.New("Nada en la cabezera")
+	}
+	return p.head.value, nil
+}
+
+func (p *Stack[T]) Size() int {
+	return p.size
+}
+
+/************************************************************/
+
+type Queue[T comparable] struct {
+	head *node[T] // puntero al primer nodo
+	tail *node[T] // puntero al último nodo
+	size int
+}
+
+func NewQueue[T comparable]() *Queue[T] {
+	return &Queue[T]{head: nil, tail: nil}
+}
+
+func (p *Queue[T]) Enqueue(value T) {
+	newNode := newNode(value)
+	if p.tail == nil {
+		p.head = newNode
+		p.tail = newNode
+		p.size++
+	} else {
+		p.tail.next = newNode
+		p.tail = newNode
+		p.size++
+	}
+}
+
+func (p *Queue[T]) Dequeue() (T, error) {
+	if p.head == nil {
+		var t T
+		return t, errors.New("Nada que eliminar")
+	}
+	retorno := p.head
+	p.head = p.head.next
+	p.size--
+	return retorno.value, nil
+}
+
+func (p *Queue[T]) IsEmpty() bool {
+	if p.tail != nil {
+		return false
+	}
+	return true
+}
+
+func (p *Queue[T]) Front() (T, error) {
+	if p.head == nil {
+		var t T
+		return t, errors.New("Nada que eliminar")
+	}
+	return p.head.value, nil
 }

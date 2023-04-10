@@ -8,7 +8,7 @@ import (
 	"testing"
 )
 
-func TestInsert(t *testing.T) {
+func TestInsertSlice(t *testing.T) {
 	list := slicelist.NewSliceList[int]()
 	list.Append(1)
 	list.Append(2)
@@ -28,7 +28,7 @@ func TestInsert(t *testing.T) {
 	}
 }
 
-func TestDelete(t *testing.T) {
+func TestDeleteSlice(t *testing.T) {
 	list := slicelist.NewSliceList[int]()
 	list.Append(0)
 	list.Append(1)
