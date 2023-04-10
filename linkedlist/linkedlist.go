@@ -184,3 +184,109 @@ func (l *LinkedList[T]) Get(position int) (T, error) {
 func (l *LinkedList[T]) Size() int {
 	return l.size
 }
+
+/************************************************************/
+
+type Stack[T comparable] struct {
+	head *node[T] // puntero al primer nodo
+	size int
+}
+
+func NewStack[T comparable]() *Stack[T] {
+	return &Stack[T]{head: nil}
+}
+
+func (p *Stack[T]) Push(value T) {
+	newNode := newNode(value)
+	if p.head == nil {
+		p.head = newNode
+		p.size++
+	} else {
+		newNode.next = p.head
+		p.head = newNode
+		p.size++
+	}
+}
+
+func (p *Stack[T]) Pop() (T, error) {
+
+	if p.head == nil {
+		var t T
+		return t, errors.New("Nada que eliminar")
+	}
+	retorno := p.head
+	p.head = p.head.next
+	p.size--
+	return retorno.value, nil
+}
+
+func (p *Stack[T]) IsEmpty() bool {
+
+	if p.head != nil {
+		return false
+	}
+	return true
+}
+
+func (p *Stack[T]) Top() (T, error) {
+	if p.head == nil {
+		var t T
+		return t, errors.New("Nada en la cabezera")
+	}
+	return p.head.value, nil
+}
+
+func (p *Stack[T]) Size() int {
+	return p.size
+}
+
+/************************************************************/
+
+type Queue[T comparable] struct {
+	head *node[T] // puntero al primer nodo
+	tail *node[T] // puntero al último nodo
+	size int
+}
+
+func NewQueue[T comparable]() *Queue[T] {
+	return &Queue[T]{head: nil, tail: nil}
+}
+
+func (p *Queue[T]) Enqueue(value T) {
+	newNode := newNode(value)
+	if p.tail == nil {
+		p.head = newNode
+		p.tail = newNode
+		p.size++
+	} else {
+		p.tail.next = newNode
+		p.tail = newNode
+		p.size++
+	}
+}
+
+func (p *Queue[T]) Dequeue() (T, error) {
+	if p.head == nil {
+		var t T
+		return t, errors.New("Nada que eliminar")
+	}
+	retorno := p.head
+	p.head = p.head.next
+	p.size--
+	return retorno.value, nil
+}
+
+func (p *Queue[T]) IsEmpty() bool {
+	if p.tail != nil {
+		return false
+	}
+	return true
+}
+
+func (p *Queue[T]) Front() (T, error) {
+	if p.head == nil {
+		var t T
+		return t, errors.New("Nada que eliminar")
+	}
+	return p.head.value, nil
+}

@@ -16,4 +16,4 @@ En la carpeta `/linkedlist` se encuentra una implementación de una lista enlaza
 2. Implementar en la carpeta `/slicelist`una lista usando slices en lugar de nodos enlazados, con las mismas operaciones que la lista enlazada. Analizar el orden de cada operación. [OK]
 3. Escribir una función que reciba como parámetros dos listas del mismo tipo y devuelva una lista resultante de concatenar la segunda lista al final de la primera [OK]
 4. Escribir una función que reciba dos listas del mismo tipo y devuelva la lista que resulta de intercalar uno a uno los elementos de ambas listas. [OK] 
-5. Implementar una pila y una cola usando la lista enlazada simple
+5. Implementar una pila y una cola usando la lista enlazada simple [OK]
